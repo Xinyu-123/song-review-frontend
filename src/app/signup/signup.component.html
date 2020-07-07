@@ -1,0 +1,9 @@
+<h2>Signup</h2>
+
+
+<form [formGroup]='form' (submit)='register()'>
+    Username: <input type="text" formControlName="username">
+    Password: <input type="password" formControlName="password">
+
+    <input type="submit" value="Register!">
+</form>

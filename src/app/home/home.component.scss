@@ -1,0 +1,24 @@
+// * {
+//     display: inline;
+// }
+
+img {
+    height: 200px;
+}
+
+ol{
+    // display: flex;
+    // flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+}
+
+li{ 
+    margin: 5px;
+
+}
+
+.container{
+    
+}

@@ -1,0 +1,34 @@
+<h2>Home</h2>
+
+<form [formGroup]='form'>
+  <input type="text" placeholder="Song Search..." formControlName='search'>
+  <input type="submit" (click)='search_song()' value="search">
+</form>
+<p>
+  Top songs are: 
+</p>
+<div class='container'>
+  <ol *ngIf="songs">
+    <li *ngFor ="let song of songs">
+        <p>Name: {{ song.name }}</p>
+        <p>Artist: {{ song.artist }}</p>
+        <p *ngIf="song.date_published">Release Date: {{song.date_published.slice(0, 10)}}</p>
+        <p>Rating: {{ song.rating }}</p>
+        <p>Date added: {{ song.date_uploaded.slice(0, 10) }}</p>
+        <p>Added by: {{ song.created_by_username }} </p>
+        <p *ngIf ='song.Copyright_Attribution'>Copyright Attribute: {{ song.Copyright_Attribution}} </p>
+        <img *ngIf="song.song_image" src="http://localhost:4000/{{song.song_image}}" alt="">
+    </li>
+  </ol>
+</div>
+
+
+
+
+<hr>
+
+<app-create-song></app-create-song>
+
+
+  
+  

@@ -1,0 +1,8 @@
+navbar: <a routerLink='home'>Home</a>
+<a *ngIf="!auth.isLoggedIn()" routerLink='login'>Login</a>
+<a *ngIf="!auth.isLoggedIn()" routerLink='signup'>Signup</a>
+<a *ngIf="auth.isLoggedIn()" routerLink='profile'>{{auth.getUserDetails().username}}</a>
+<a *ngIf="auth.isLoggedIn() && auth.isAdmin()" routerLink='admin'>Admin</a>
+<a *ngIf="auth.isLoggedIn()" (click)='auth.logout()' routerLink=''>Logout</a>
+
+<hr>
