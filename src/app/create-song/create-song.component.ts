@@ -48,7 +48,7 @@ export class CreateSongComponent implements OnInit {
       this.audio = <File>event.target.files[0];
     }
 
-    console.log(this.image)
+    console.log(this.audio)
   }
 
   add_song(info){

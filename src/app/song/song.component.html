@@ -7,6 +7,13 @@
     <p *ngIf="song.date_uploaded">Date added: {{ song.date_uploaded.slice(0, 10) }}</p>
     <p>Added by: {{ song.created_by_username }} </p>
     <img *ngIf="song.song_image" src="http://localhost:4000/{{song.song_image}}" alt="">
+
+    <audio
+        controls
+        src="http://localhost:4000/{{song.audio_file}}">
+            Your browser does not support the
+            <code>audio</code> element.
+    </audio>
 </div>
 
 <app-reviews></app-reviews>

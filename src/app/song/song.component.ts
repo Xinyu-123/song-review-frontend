@@ -11,8 +11,8 @@ interface Song {
   artist: string,
   created_by_username: string,
   song_image: string,
+  audio_file: string,
   date_published: string,
-
 }
 
 @Component({
