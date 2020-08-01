@@ -4,6 +4,8 @@ import { map } from 'rxjs/operators'
 import { Router } from '@angular/router'
 import { HttpService } from './http.service';
 import { HttpClient } from '@angular/common/http'
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 export interface UserDetails {
   _id?: number
   username: string,
@@ -28,6 +30,7 @@ export interface TokenPayload {
 })
 export class AuthService {
   private token: string
+  private helper = new JwtHelperService();
 
   constructor(private http: HttpService, private router: Router, private http2: HttpClient) { }
 
@@ -57,7 +60,7 @@ export class AuthService {
 
   public isLoggedIn (): boolean {
     const user = this.getUserDetails();
-    if(user){
+    if(user && !this.helper.isTokenExpired(this.token)){
       return true;
     }else{
       return false;

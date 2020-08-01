@@ -7,6 +7,9 @@ import { AdminComponent } from './admin/admin.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuardService } from './_services/auth-guard.service';
 import { AdminGuard } from './_services/admin.guard';
+import { SongComponent } from './song/song.component';
+import { SearchSongComponent } from './search-song/search-song.component';
+import { CreateSongComponent } from './create-song/create-song.component';
 
 
 const routes: Routes = [
@@ -37,6 +40,18 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuardService]
+  },
+  {
+    path: 'song',
+    component: SongComponent
+  },
+  {
+    path: 'search',
+    component: SearchSongComponent
+  },
+  {
+    path: 'create-song',
+    component: CreateSongComponent
   }
 ];
 

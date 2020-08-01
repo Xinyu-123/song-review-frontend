@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
+  login_failed: boolean
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -23,7 +24,12 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.form.value).subscribe(
       (data) => {
         console.log(data);
-        this.router.navigateByUrl('/profile');
+        if(data.token){
+          this.router.navigateByUrl('/profile');
+        }else{
+          this.login_failed = true;
+        }
+        
       },
       err => {
         console.error(err);

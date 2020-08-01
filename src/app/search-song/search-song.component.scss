@@ -1,4 +1,18 @@
+// * {
+//     display: inline;
+// }
 
+mat-form-field {
+    margin-right: 10px;
+}
+
+ol{
+    // display: flex;
+    // flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+}
 
 li{ 
     margin: 5px;
@@ -14,28 +28,18 @@ h1 {
     text-align: center;
 }
 
-// .title {
-//     background-image: url('https://api.time.com/wp-content/uploads/2018/04/listening-to-music-headphones.jpg?w=600&quality=85');
-//     background-size: contain;
-//     height: 500px;
-//     text-align: center;
-    
-// }
-
 .song {
     cursor: pointer;
     background-color: lightblue;
     text-align: center;
-    border: 0.1em solid;
+    border: 0.2em solid;
     &:hover{
         transform: scale(1.085);
         transition: transform 1s ease-in-out;
     }
     img {
-        margin-top: 10px;
         height: 200px;
     }
-    
     transition: transform 0.3s ease-in-out;
 }
 
@@ -43,13 +47,9 @@ h1 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto;
-    grid-row-gap: 0.3em;
-    column-gap: 0.3em;
+    grid-row-gap: 0.2em;
+    column-gap: 0.2em;
     margin: 0 1.2em 0 1.2em;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    
-    
 }
 
 @media screen and (max-width: 750px) {

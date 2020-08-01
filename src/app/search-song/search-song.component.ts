@@ -1,11 +1,10 @@
-import { Component, OnInit, ComponentFactoryResolver, Type,
-  ViewChild,
-  ViewContainerRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { Data, Router } from '@angular/router';
+import { UserDetails } from '../_services/auth.service';
 import { HttpService } from '../_services/http.service';
-import { AuthService, UserDetails } from '../_services/auth.service';
-import { FormBuilder, FormGroup, FormsModule, FormArray } from '@angular/forms';
-import { throwIfEmpty } from 'rxjs/operators';
+import { StarRatingComponent } from 'ng-starrating';
+
 
 interface SongDetails {
   name: string,
@@ -18,38 +17,42 @@ interface SongDetails {
 }
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-search-song',
+  templateUrl: './search-song.component.html',
+  styleUrls: ['./search-song.component.scss']
 })
-export class HomeComponent implements OnInit {
-  @ViewChild('container', {read: ViewContainerRef}) container: ViewContainerRef;
-
-  // Keep track of list of generated components for removal purposes
-  components = [];
+export class SearchSongComponent implements OnInit {
   form: FormGroup
   songs: Data;
   details: UserDetails;
-  fields = [{ display: 'name', field: 'name'},
-           { display:'artist', field: 'artist'}, 
-           { display: 'user', field: 'created_by_username'}
-          ]
+  rating: number;
+
+  fields = [
+    { display: 'name', field: 'name'},
+    { display:'artist', field: 'artist'}, 
+    { display: 'user', field: 'created_by_username'}
+  ]
+
   selectedFields = [];
-  constructor(private http: HttpService, public auth: AuthService, private fb: FormBuilder, private router: Router){
-  }
 
-  ngOnInit(){
-    this.get_songs().subscribe((songs: SongDetails[])  => {
-      this.songs = songs;
-    });
+  constructor(private fb: FormBuilder, private http: HttpService, private router: Router) { }
 
+  ngOnInit(): void {
     this.form = this.fb.group({
       search: '',
       fields: this.get_fields(),
       rating_range: '0',
     })
+    console.log(this.form.get('fields'))
+  }
 
-
+  change_slider($event){
+    console.log($event)
+    this.form.setValue({
+      search: this.form.value.search,
+      fields: this.form.value.fields,
+      rating_range: $event.value
+    })
   }
 
   get fieldsArray() {
@@ -59,7 +62,8 @@ export class HomeComponent implements OnInit {
   get_fields(){
     const arr = this.fields.map(field => {
       console.log(field);
-      return this.fb.control(false)
+      
+      return this.fb.control(true)
     })
     return this.fb.array(arr);
   }
@@ -73,18 +77,9 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  get_songs(){
-    return this.http.get_songs();
-  }
-
-  get_song_image(image){
-    return `/api/${image}`
-  }
-
-
   search_song(){
     this.getSelectedFields();
-    console.log(this.form.value);
+    // console.log(this.form.value);
     const search = {
       search: this.form.value.search,
       rating_range: this.form.value.rating_range,
@@ -92,12 +87,17 @@ export class HomeComponent implements OnInit {
     } 
     console.log(search);
     this.http.searchSongs(search).subscribe(async (songs: SongDetails[]) => {
+      console.log(songs);
       this.songs = songs;
-    }).unsubscribe();
+    });
   }
 
   go_to_song(id: string){
     this.router.navigateByUrl(`/song?id=${id}`)
+  }
+
+  onRate($event:{oldValue:number, newValue:number, starRating:StarRatingComponent}) {
+    this.rating = $event.newValue;
   }
 
 }

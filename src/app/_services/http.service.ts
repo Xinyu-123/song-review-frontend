@@ -17,11 +17,7 @@ export class HttpService {
   }
 
   post_song(info: FormData){
-
-    console.log(info);
-    this.http.post('/api/songs', info).subscribe(data => {
-      console.log(data);
-    });
+    return this.http.post('/api/songs', info)
   }
 
   get_image(image){
@@ -62,9 +58,23 @@ export class HttpService {
     return this.http.post('/api/users/remove-admin', {username: user})
   }
 
-  searchSongs(search: string){
-    console.log(search);
-    return this.http.get(`/api/songs/search?search=${search}`)
+  searchSongs(search){
+    console.log({fields:search.search_fields, rating: search.rating_range});
+
+    return this.http.post(`/api/songs/search?search=${search.search}`, {fields:search.search_fields, rating: search.rating_range})
+  }
+
+  get_song(id){
+    return this.http.get(`/api/songs/song?id=${id}`)
+  }
+
+  get_reviews(songID){
+    return this.http.get(`/api/reviews/${songID}`);
+  }
+
+  post_reviews(review){
+    console.log(review);
+    return this.http.post('/api/reviews/', review);
   }
 
 }

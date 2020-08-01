@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpService } from './_services/http.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Data } from '@angular/router';
+import { StarRatingComponent } from 'ng-starrating';
+import { ratingElement } from './ratingElement';
 
 @Component({
   selector: 'app-root',
@@ -10,19 +9,14 @@ import { Data } from '@angular/router';
 })
 export class AppComponent implements OnInit{
   title = 'library';
+  constructor() { }
 
-  form: FormGroup;
-  songs: Data;
-
-  loggedIn: boolean = false;
-  constructor(){
-
+  ngOnInit() {
   }
 
-  ngOnInit(){
-
+  onRate($event: { oldValue: number, newValue: number, starRating: StarRatingComponent }) {
+    alert(`Old Value:${$event.oldValue}, New Value: ${$event.newValue}, Checked Color: ${$event.starRating.checkedcolor}, Unchecked Color: ${$event.starRating.uncheckedcolor}`);
   }
-
 }
 
 
