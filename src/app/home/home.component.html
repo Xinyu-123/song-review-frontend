@@ -6,7 +6,7 @@
 <div class='container' *ngIf="songs">
   <div *ngFor ="let song of songs">
     <div class='song' (click)='go_to_song(song._id)'>
-      <img *ngIf="song.song_image" src="http://localhost:4000/{{song.song_image}}" alt="">
+      <img *ngIf="song.song_image" src="http://ec2-18-224-246-12.us-east-2.compute.amazonaws.com/api/{{song.song_image}}" alt="">
       <h4 id='name'>{{ song.name }}</h4>
       <p>by: {{ song.artist }}</p>
       <p *ngIf="song.date_published">Release Date: {{song.date_published.slice(0, 10)}}</p>
